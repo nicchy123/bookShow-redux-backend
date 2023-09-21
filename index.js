@@ -1,14 +1,21 @@
+const dotnev = require("dotenv")
+dotnev.config()
 const express = require("express");
-const { MongoClient,  ObjectId } = require("mongodb");
+const { MongoClient,  ObjectId, ServerApiVersion } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
-
 app.use(cors());
 app.use(express.json());
-const uri = "mongodb://localhost:27017/Books";
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.euxm4cs.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri);
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bbqqyyb.mongodb.net/?retryWrites=true&w=majority`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
 
 const run = async () => {
   try {
